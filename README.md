@@ -1,6 +1,6 @@
-# TODO List App (NestJS, TypeScript) Tutorial
+# TODO List App (NestJS, TypeScript)
 
-**Goal:** Develop a simple To Do List application using TypeScript, React, Docker, NestJS technologies. The application should allow the user to add, delete, and mark tasks as completed. In addition, the application should include unit tests for key functionalities.
+**Goal:** Develop a simple to-do list application using TypeScript, React, Docker, and NestJS technologies. The application should allow users to add, delete, and mark tasks as completed. In addition, the application should include unit tests for key functionalities.
 
 ## Frontend Part (React + TypeScript)
 
@@ -9,7 +9,7 @@
 - To-do list.
 - Text box to enter a new task.
 - A button to add a new task.
-- Next to each task, a button to delete it and a checkbox to mark it as done.
+- Next to each task is a delete button and a checkbox to mark it as done.
 
 ### Functionality
 
@@ -46,15 +46,15 @@ Task:
 
 ## Docker
 
-- Creating a Dockerfile for both the frontend and backend.
+- Creating a Dockerfile for both the front-end and back-end.
 - Using `docker-compose` to run the entire application (frontend + backend).
 
 ## Instructions
 
-1. Start by creating a new NestJS project for the backend and a new React project for the frontend.
+1. Start by creating a new NestJS project for the backend and a new React project for the front-end.
 2. Implement the functionalities listed above.
 3. Write unit tests for the key functionalities.
-4. Make sure that the application and tests work correctly both locally and in the Docker container.
+4. Make sure the application and tests work correctly locally and in the Docker container.
 5. Pay attention to code quality, project structure, and error handling.
 
 ## Evaluation
@@ -62,13 +62,13 @@ Task:
 - Correctness of application performance.
 - Code quality and structure.
 - Use of TypeScript in both parts of the application.
-- Correct use of Docker and `docker-compose`.
+- Correct use of Docker and `docker-compose`
 - Error handling and server responses.
 - Coverage of the code with unit tests and the quality of the written tests.
 
 ## Setup
 
-### Create app container directory
+### Create an app container directory
 
 ```bash
 todo-app/
