@@ -57,11 +57,11 @@ Both frontend and backend parts of the application come with Dockerfile configur
 
 1. Clone this repository:
 
-    git clone `repository-url`
+    git clone https://github.com/abenteuerzeit/todo-list
 
 2. Navigate to the project directory:
 
-    cd path-to-your-directory
+    cd todo-list
 
 ### Running the Application
 
