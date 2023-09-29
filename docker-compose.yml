@@ -9,7 +9,10 @@ services:
       - "${BACKEND_PORT}:${BACKEND_PORT}"
     environment:
       - PORT=${BACKEND_PORT}
+      - CONNECTION_STRING=${CONNECTION_STRING}
     restart: always
+    depends_on:
+      - mongo
 
   frontend:
     build:
@@ -18,7 +21,18 @@ services:
     ports:
       - "${FRONTEND_PORT}:${FRONTEND_PORT}"
     environment:
-      - REACT_APP_BACKEND_URL=${BACKEND_URL}
+      - BACKEND_URL=${BACKEND_URL}
     restart: always
     depends_on:
       - backend
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+
+volumes:
+  mongo-data:
