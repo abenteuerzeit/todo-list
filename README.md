@@ -71,8 +71,8 @@ Both frontend and backend parts of the application come with Dockerfile configur
 
 2. Once the containers are up and running, you can access:
 
-- **Frontend**: `http://localhost:3000`
-- **Backend API**: `http://localhost:4000`
+- **Frontend**: `http://localhost:3001`
+- **Backend API**: `http://localhost:3000`
 
 To stop the services:
 
