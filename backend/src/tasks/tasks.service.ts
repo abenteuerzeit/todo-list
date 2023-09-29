@@ -1,41 +1,52 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { Task } from './models/task.model';
+import {
+  Injectable,
+  NotFoundException,
+  InternalServerErrorException,
+} from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Task } from './tasks.schema';
 
 @Injectable()
 export class TasksService {
-  private tasks: Task[] = [];
-  private idCounter = 1;
+  constructor(@InjectModel('Task') private readonly taskModel: Model<Task>) {}
 
   async findAll(): Promise<Task[]> {
-    return Promise.resolve(this.tasks);
+    try {
+      return this.taskModel.find().exec();
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to fetch tasks.');
+    }
   }
 
   async create(content: string): Promise<Task> {
-    const newTask: Task = {
-      id: this.idCounter++,
-      content: content,
-      done: false,
-    };
-    this.tasks.push(newTask);
-    return Promise.resolve(newTask);
+    const createdTask = new this.taskModel({ content, done: false });
+    try {
+      return createdTask.save();
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to create task.');
+    }
   }
 
-  async delete(id: number): Promise<string> {
-    const taskIndex = this.tasks.findIndex((task) => task.id === id);
-    if (taskIndex === -1) {
-      throw new NotFoundException(`Task with ID ${id} not found`);
+  async delete(_id: string): Promise<void> {
+    const result = await this.taskModel.deleteOne({ _id }).exec();
+    if (result.deletedCount === 0) {
+      throw new NotFoundException(`Task with ID ${_id} not found`);
     }
-    this.tasks.splice(taskIndex, 1);
-    return Promise.resolve(`Task with ID ${id} deleted successfully`);
   }
 
   async update(
-    id: number,
+    _id: string,
     updatedTaskData: { content?: string; done?: boolean },
   ): Promise<Task> {
-    const task = this.tasks.find((t) => t.id === id);
+    let task;
+    try {
+      task = await this.taskModel.findOne({ _id }).exec();
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to update task.');
+    }
     if (!task) {
-      throw new NotFoundException(`Task with ID ${id} not found`);
+      throw new NotFoundException(`Task with ID ${_id} not found`);
     }
 
     if (updatedTaskData.content) {
@@ -46,6 +57,12 @@ export class TasksService {
       task.done = updatedTaskData.done;
     }
 
-    return Promise.resolve(task);
+    try {
+      await task.save();
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to save updated task.');
+    }
+
+    return task;
   }
 }

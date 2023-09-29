@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TasksService } from './tasks.service';
 import { NotFoundException } from '@nestjs/common';
+import { Task } from './tasks.schema';
 
 describe('TasksService', () => {
   let service: TasksService;
@@ -39,26 +40,34 @@ describe('TasksService', () => {
   describe('create', () => {
     it('should create and return a task', async () => {
       const newTaskContent = 'Test Task';
-      const result = { id: 1, content: newTaskContent, done: false };
+      const mockTask = {
+        _id: 'someUniqueId',
+        content: newTaskContent,
+        done: false,
+        save: jest.fn(),
+      } as unknown as Task;
 
-      jest.spyOn(service, 'create').mockResolvedValue(result);
+      jest.spyOn(service, 'create').mockResolvedValue(mockTask);
 
-      expect(await service.create(newTaskContent)).toEqual(result);
+      expect(await service.create(newTaskContent)).toEqual(mockTask);
     });
   });
 
   describe('delete', () => {
-    it('should delete a task by ID and return a success message', async () => {
-      const taskId = 1;
-      const successMessage = `Task with ID ${taskId} deleted successfully`;
+    it('should delete a task by ID without throwing an error', async () => {
+      const taskId = 'someUniqueId';
 
-      jest.spyOn(service, 'delete').mockResolvedValue(successMessage);
+      // Mock the delete method to resolve without returning anything
+      jest.spyOn(service, 'delete').mockResolvedValue();
 
-      expect(await service.delete(taskId)).toBe(successMessage);
+      // Use an inline async function to handle the promise
+      await expect(async () => {
+        await service.delete(taskId);
+      }).not.toThrow();
     });
 
     it('should throw an error if task is not found', async () => {
-      const taskId = 999;
+      const taskId = 'nonExistentId';
       jest
         .spyOn(service, 'delete')
         .mockRejectedValue(
@@ -71,17 +80,23 @@ describe('TasksService', () => {
 
   describe('update', () => {
     it('should update and return a task', async () => {
-      const taskId = 1;
+      const taskId = 'someUniqueId';
       const updatedData = { content: 'Updated Task', done: true };
-      const updatedTask = { id: taskId, ...updatedData };
+      const mockUpdatedTask = {
+        _id: taskId,
+        ...updatedData,
+        save: jest.fn(),
+      } as unknown as Task;
 
-      jest.spyOn(service, 'update').mockResolvedValue(updatedTask);
+      jest.spyOn(service, 'update').mockResolvedValue(mockUpdatedTask);
 
-      expect(await service.update(taskId, updatedData)).toEqual(updatedTask);
+      expect(await service.update(taskId, updatedData)).toEqual(
+        mockUpdatedTask,
+      );
     });
 
     it('should throw an error if task is not found', async () => {
-      const taskId = 999;
+      const taskId = 'nonExistentId';
       jest
         .spyOn(service, 'update')
         .mockRejectedValue(
