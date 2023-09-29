@@ -57,7 +57,7 @@ Both frontend and backend parts of the application come with Dockerfile configur
 
 1. Clone this repository:
 
-    git clone https://github.com/abenteuerzeit/todo-list
+    git clone [https://github.com/abenteuerzeit/todo-list](https://github.com/abenteuerzeit/todo-list.git)
 
 2. Navigate to the project directory:
 
