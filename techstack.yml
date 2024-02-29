@@ -2,7 +2,7 @@ repo_name: abenteuerzeit/todo-list
 report_id: 2fd18cb680e01b78b749056b5092e47d
 version: 0.1
 repo_type: Public
-timestamp: '2024-01-05T08:49:18+00:00'
+timestamp: '2024-02-29T18:40:23+00:00'
 requested_by: abenteuerzeit
 provider: github
 branch: main
@@ -198,7 +198,7 @@ tools:
   last_updated_by: abenteuerzeit
   last_updated_on: 2023-09-28 16:26:24.000000000 Z
 - name: Prettier
-  description: 'Prettier is an opinionated code formatter. '
+  description: Prettier is an opinionated code formatter.
   website_url: https://prettier.io/
   version: 3.0.3
   license: MIT
@@ -212,7 +212,7 @@ tools:
   last_updated_by: abenteuerzeit
   last_updated_on: 2023-09-28 16:26:24.000000000 Z
 - name: SuperTest
-  description: 'A library for testing node.js HTTP servers '
+  description: A library for testing node.js HTTP servers
   website_url: https://www.npmjs.com/package/supertest
   version: 6.3.3
   license: MIT
